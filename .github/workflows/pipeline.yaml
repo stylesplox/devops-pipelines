@@ -5,19 +5,20 @@ on:
     branches: [ main ]
 
 jobs:
-  build:                 # The job name
+  build:
     runs-on: ubuntu-latest
-    steps:               # Steps MUST be indented under the job name
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16  # Added a space after the colon
+          node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        # --legacy-peer-deps helps avoid the 254 error if packages conflict
+        run: npm install --legacy-peer-deps
 
       - name: Run tests
         run: npm test
